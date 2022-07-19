@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,10 +26,14 @@ public class Veterinarian implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "Não pode ser vázio")
 	private String name;
 	
+	@NotBlank
+	@Column(length = 3)
 	private String crmv;
 	
+	@NotBlank
 	private String phone;
 	
 }

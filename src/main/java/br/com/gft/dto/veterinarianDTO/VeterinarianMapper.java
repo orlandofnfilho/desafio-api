@@ -9,6 +9,6 @@ public class VeterinarianMapper {
 	}
 
 	public static VeterinarianResponseDTO fromEntity(Veterinarian obj) {
-		return new VeterinarianResponseDTO(null, obj.getName(), obj.getCrmv(), obj.getPhone());
+		return new VeterinarianResponseDTO(obj.getId(), obj.getName(), obj.getCrmv(), obj.getPhone());
 	}
 }

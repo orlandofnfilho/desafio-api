@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.com.gft.entities.Veterinarian;
-import br.com.gft.exceptions.DataIntegrityViolationException;
+import br.com.gft.exceptions.BusinessRuleException;
 import br.com.gft.exceptions.ResourceNotFoundException;
 import br.com.gft.repositories.VeterinarianRepository;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class VeterinarianService {
 	private final VeterinarianRepository veterinarianRepository;
 
 	public Veterinarian create(Veterinarian obj) {
-		Optional<Veterinarian> vetSaved = this.findByCrmv(obj.getCrmv());
+		this.findByCrmv(obj.getCrmv());
 		return veterinarianRepository.save(obj);
 	}
 
@@ -33,8 +33,8 @@ public class VeterinarianService {
 	
 	public Veterinarian update(Long id, Veterinarian obj) {
 		Veterinarian vetSaved = this.findById(id);
-		obj.setId(vetSaved.getId());
-		this.findByCrmv(obj.getCrmv());
+		validUpdate(obj, vetSaved);
+		obj.setId(vetSaved.getId()); 
 		return veterinarianRepository.save(obj);
 	}
 	
@@ -46,9 +46,14 @@ public class VeterinarianService {
 	public Optional<Veterinarian> findByCrmv(String crmv) {
 		Optional<Veterinarian> vetSaved = veterinarianRepository.findByCrmv(crmv);
 		if (vetSaved.isPresent()) {
-			throw new DataIntegrityViolationException("Veterinário já cadastrado CRMV: " + crmv);
+			throw new BusinessRuleException("Veterinário já cadastrado CRMV: " + crmv);
 		}
 		return vetSaved;
 	}
-
+	
+	protected void validUpdate(Veterinarian obj, Veterinarian vetSaved) {
+		if(obj.getCrmv() != vetSaved.getCrmv()) {
+			this.findByCrmv(obj.getCrmv());
+		}
+	}
 }

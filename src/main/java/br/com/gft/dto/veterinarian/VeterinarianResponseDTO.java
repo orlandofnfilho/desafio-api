@@ -1,4 +1,4 @@
-package br.com.gft.dto.veterinarianDTO;
+package br.com.gft.dto.veterinarian;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

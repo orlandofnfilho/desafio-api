@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.gft.dto.veterinarianDTO.VeterinarianMapper;
-import br.com.gft.dto.veterinarianDTO.VeterinarianRequestDTO;
-import br.com.gft.dto.veterinarianDTO.VeterinarianResponseDTO;
+import br.com.gft.dto.veterinarian.VeterinarianMapper;
+import br.com.gft.dto.veterinarian.VeterinarianRequestDTO;
+import br.com.gft.dto.veterinarian.VeterinarianResponseDTO;
 import br.com.gft.entities.Veterinarian;
 import br.com.gft.services.VeterinarianService;
 import lombok.AllArgsConstructor;

@@ -44,6 +44,21 @@ public class ControllerExceptionHandler {
 	
 	}
 	
+	@ExceptionHandler(ArrayIndexOutOfBoundsException.class)
+	public ResponseEntity<StandardError> businessConstraint(ArrayIndexOutOfBoundsException e, HttpServletRequest request){
+		
+	StandardError err = new StandardError();
+	err.setTimestamp(Instant.now());
+	err.setStatus(HttpStatus.BAD_REQUEST.value());
+	err.setError("Bad Request");
+	err.setMessage(e.getMessage());
+	err.setPath(request.getRequestURI());
+	return ResponseEntity.status(err.getStatus()).body(err);
+	
+	}
+	
+	
+	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<DataIntegrityError> dataIntegrityConstraint(DataIntegrityViolationException e, HttpServletRequest request){
 		
@@ -56,5 +71,7 @@ public class ControllerExceptionHandler {
 	return ResponseEntity.status(err.getStatus()).body(err);
 	
 	}
+	
+	
 
 }

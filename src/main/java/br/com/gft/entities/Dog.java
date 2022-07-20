@@ -2,35 +2,39 @@ package br.com.gft.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tb_veterinarian")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Veterinarian implements Serializable{
-	private static final long serialVersionUID = 1L;
+@Table(name = "tb_dog")
+public class Dog implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "Não pode ser vázio")
 	private String name;
 	
-	private String crmv;
+	private String reg_cod;
 	
-	@NotBlank
-	private String phone;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private Breed breed;
+	
+	@ManyToOne
+	private Client guardian;
+	
 	
 }

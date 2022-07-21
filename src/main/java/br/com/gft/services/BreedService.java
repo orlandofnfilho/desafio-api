@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.gft.entities.Breed;
@@ -21,6 +22,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class BreedService {
 
 	private final BreedRepository breedRepository;
@@ -35,11 +37,13 @@ public class BreedService {
 		return breedRepository.save(obj);
 	}
 
+	@Transactional(readOnly = true)
 	public Breed findById(Long id) {
 		Optional<Breed> obj = breedRepository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Raça não encontrada: " + id));
 	}
 
+	@Transactional(readOnly = true)
 	public Page<Breed> findAll(Pageable pageable) {
 		return breedRepository.findAll(pageable);
 	}
@@ -56,6 +60,7 @@ public class BreedService {
 		breedRepository.delete(breedSaved);
 	}
 
+	@Transactional(readOnly = true)
 	public Optional<Breed> findByName(String name) {
 		return breedRepository.findByNameIgnoreCase(name);
 	}

@@ -1,4 +1,4 @@
-package br.com.gft.dto.breed;
+package br.com.gft.dto.client;
 
 import java.io.Serializable;
 
@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BreedResponseDTO implements Serializable{
+public class ClientRequestDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	private Long id;
-	private String name;
-	private String life_span;
-	private String temperament;
-	private String origin;
 
+	private String name;
+	
+	private String cpf;
+	
+	private String phone;
+	
+	
 }

@@ -31,7 +31,7 @@ public class Dog implements Serializable{
 	
 	private String reg_cod;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Breed breed;
 	
 	@ManyToOne

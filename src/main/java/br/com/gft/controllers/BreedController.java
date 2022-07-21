@@ -1,9 +1,10 @@
 package br.com.gft.controllers;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,10 +51,11 @@ public class BreedController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<BreedResponseDTO>> findAll(){
-		List<BreedResponseDTO> response = breedService.findAll().stream()
-				.map(b -> BreedMapper.fromEntity(b)).collect(Collectors.toList());
+	public ResponseEntity<Page<BreedResponseDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
+		Page<BreedResponseDTO> response = breedService.findAll(pageable)
+				.map(BreedMapper::fromEntity);
 		return ResponseEntity.ok().body(response);
+
 	}
 	
 	

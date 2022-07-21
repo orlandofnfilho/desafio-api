@@ -3,6 +3,7 @@ package br.com.gft.exceptions;
 import java.time.Instant;
 import java.util.Arrays;
 
+import javax.persistence.NonUniqueResultException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -72,6 +73,18 @@ public class ControllerExceptionHandler {
 	
 	}
 	
+	
+	@ExceptionHandler(NonUniqueResultException.class)
+	public ResponseEntity<StandardError> nonUniqueResult(NonUniqueResultException e, HttpServletRequest request){		
+	StandardError err = new StandardError();
+	err.setTimestamp(Instant.now());
+	err.setStatus(HttpStatus.BAD_REQUEST.value());
+	err.setError("Bad Request");
+	err.setMessage(e.getMessage());
+	err.setPath(request.getRequestURI());
+	return ResponseEntity.status(err.getStatus()).body(err);
+	
+	}
 	
 
 }

@@ -1,8 +1,9 @@
 package br.com.gft.services;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.gft.entities.Veterinarian;
@@ -27,8 +28,8 @@ public class VeterinarianService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Veterinário não encontrado id: " + id));
 	}
 
-	public List<Veterinarian> findAll() {
-		return veterinarianRepository.findAll();
+	public Page<Veterinarian> findAll(Pageable pageable) {
+		return veterinarianRepository.findAll(pageable);
 	}
 	
 	public Veterinarian update(Long id, Veterinarian obj) {

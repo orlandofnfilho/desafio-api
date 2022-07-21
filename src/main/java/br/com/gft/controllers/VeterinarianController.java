@@ -1,11 +1,12 @@
 package br.com.gft.controllers;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,9 +52,9 @@ public class VeterinarianController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<VeterinarianResponseDTO>> findAll() {
-		List<VeterinarianResponseDTO> response = veterinarianService.findAll().stream()
-				.map(v -> VeterinarianMapper.fromEntity(v)).collect(Collectors.toList());
+	public ResponseEntity<Page<VeterinarianResponseDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
+		Page<VeterinarianResponseDTO> response = veterinarianService.findAll(pageable)
+				.map(VeterinarianMapper::fromEntity);
 		return ResponseEntity.ok().body(response);
 
 	}

@@ -4,16 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.gft.entities.Breed;
 import br.com.gft.entities.Dog;
+import br.com.gft.exceptions.ResourceNotFoundException;
 import br.com.gft.repositories.DogRepository;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class DogService {
 
 	private final DogRepository dogRepository;
@@ -33,18 +37,25 @@ public class DogService {
 		return dogRepository.save(obj);
 	}
 
+	@Transactional(readOnly = true)
 	public Dog findById(Long id) {
 		Optional<Dog> obj = dogRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceAccessException("Cachorro não encontrado: " + id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Cachorro não encontrado: " + id));
 	}
 
-	public List<Dog> findAll() {
-		return dogRepository.findAll();
+	@Transactional(readOnly = true)
+	public Page<Dog> findAll(Pageable pageable) {
+		return dogRepository.findAll(pageable);
 	}
 
 	public Dog update(Long id, Dog obj) {
 		Dog dogSaved = this.findById(id);
 		obj.setId(dogSaved.getId());
+		obj.setReg_cod(dogSaved.getReg_cod());
+		Optional<Breed> breedSaved = breedService.findByName(obj.getBreed().getName());
+		if(breedSaved.isPresent()) {
+			obj.setBreed(breedSaved.get());
+		}
 		return dogRepository.save(obj);
 	}
 

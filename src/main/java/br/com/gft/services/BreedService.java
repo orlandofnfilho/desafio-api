@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -38,8 +40,8 @@ public class BreedService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Raça não encontrada: " + id));
 	}
 
-	public List<Breed> findAll() {
-		return breedRepository.findAll();
+	public Page<Breed> findAll(Pageable pageable) {
+		return breedRepository.findAll(pageable);
 	}
 
 	public Breed update(Long id, Breed obj) {

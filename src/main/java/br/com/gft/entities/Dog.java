@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "tb_dog")
 public class Dog implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

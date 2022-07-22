@@ -39,6 +39,7 @@ public class VeterinarianService {
 	public Veterinarian update(Long id, Veterinarian obj) {
 		Veterinarian vetSaved = this.findById(id);
 		obj.setId(vetSaved.getId());
+		obj.setAppointments(vetSaved.getAppointments());
 		validUpdate(obj);
 		return veterinarianRepository.save(obj);
 	}

@@ -15,7 +15,7 @@ import br.com.gft.exceptions.ResourceNotFoundException;
 import br.com.gft.repositories.DogRepository;
 import lombok.AllArgsConstructor;
 
-@Service
+@Service 
 @AllArgsConstructor
 @Transactional
 public class DogService {
@@ -33,7 +33,7 @@ public class DogService {
 				setBreedFromApi(obj, breedFromApi);
 			}
 		}
-		obj.setReg_cod(generateRegCod());
+		obj.setRegCod(generateRegCod());
 		return dogRepository.save(obj);
 	}
 
@@ -51,9 +51,10 @@ public class DogService {
 	public Dog update(Long id, Dog obj) {
 		Dog dogSaved = this.findById(id);
 		obj.setId(dogSaved.getId());
-		obj.setReg_cod(dogSaved.getReg_cod());
+		obj.setRegCod(dogSaved.getRegCod());
+		obj.setAppointments(dogSaved.getAppointments());
 		Optional<Breed> breedSaved = breedService.findByName(obj.getBreed().getName());
-		if(breedSaved.isPresent()) {
+		if (breedSaved.isPresent()) {
 			obj.setBreed(breedSaved.get());
 		}
 		return dogRepository.save(obj);
@@ -62,6 +63,11 @@ public class DogService {
 	public void delete(Long id) {
 		Dog dogSaved = this.findById(id);
 		dogRepository.delete(dogSaved);
+	}
+
+	public Dog findByRegCod(String regCod) {
+		Optional<Dog> obj = dogRepository.findByRegCodIgnoreCase(regCod);
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Cachorro não encontrado: " + regCod));
 	}
 
 	public String generateRegCod() {

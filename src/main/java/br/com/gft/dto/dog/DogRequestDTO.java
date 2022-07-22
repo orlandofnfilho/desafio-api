@@ -19,9 +19,9 @@ public class DogRequestDTO implements Serializable{
 	
 	private String name;
 	
-	private Long guardianId;
+	private Long tutorId;
 	
-	@JsonFormat(pattern="dd/MM/yyyy", shape = Shape.STRING)
+	@JsonFormat(pattern="yyyy-MM-dd", shape = Shape.STRING)
 	private LocalDate birthdate;
 	
 	private BreedRequestDTO breed;

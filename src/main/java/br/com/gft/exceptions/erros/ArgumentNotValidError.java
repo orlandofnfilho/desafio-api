@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class DataIntegrityError implements Serializable{
+public class ArgumentNotValidError implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Instant timestamp;

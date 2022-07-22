@@ -23,9 +23,13 @@ public class Breed implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String name;
+	
 	private String life_span;
+	
 	private String temperament;
+	
 	private String origin;
 	
 	

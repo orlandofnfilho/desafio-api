@@ -21,12 +21,12 @@ public class DogResponseDTO implements Serializable{
 	
 	private String name;
 	
-	private String reg_cod;
+	private String regCod;
 	
-	@JsonFormat(pattern="dd/MM/yyyy", shape = Shape.STRING)
+	@JsonFormat(pattern="yyyy-MM-dd", shape = Shape.STRING)
 	private LocalDate birthdate;
 	
-	private Long guardianId;
+	private Long tutorId;
 	
 	private BreedResponseDTO breed;
 	

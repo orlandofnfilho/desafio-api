@@ -35,7 +35,7 @@ public class Client implements Serializable {
 
 	private String phone;
 
-	@OneToMany(mappedBy = "guardian", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "tutor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Dog> pets = new ArrayList<>();
 
 }

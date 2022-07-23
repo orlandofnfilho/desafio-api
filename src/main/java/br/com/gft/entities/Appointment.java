@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,16 +34,16 @@ public class Appointment implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSZZZZ", shape = JsonFormat.Shape.STRING, timezone = "UTC")
 	private ZonedDateTime appointmentTime;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	private String tutor;
+
+	private String tutorCpf;
+
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Veterinarian veterinarian;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Dog dog;
-	
-	private String tutor;
-	
-	private String tutorCpf;
-	
+
 	private Integer actualAge;
 
 	private BigDecimal actualWeight;

@@ -1,7 +1,6 @@
 package br.com.gft.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,5 +14,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
 	
 	Page<Appointment> findAll(Pageable pageable);
 	
-	List<Optional<Appointment>> findByDogRegCodIgnoreCase();
+	List<Appointment> findByDog_RegCodIgnoreCase(String regCod);
+	
 }

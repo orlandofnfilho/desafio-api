@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.gft.entities.Breed;
+import br.com.gft.entities.Client;
 import br.com.gft.entities.Dog;
 import br.com.gft.exceptions.ResourceNotFoundException;
 import br.com.gft.repositories.DogRepository;
@@ -22,6 +23,7 @@ public class DogService {
 
 	private final DogRepository dogRepository;
 	private final BreedService breedService;
+	private final ClientService clientService;
 
 	public Dog create(Dog obj) {
 		Optional<Breed> breedSaved = breedService.findByName(obj.getBreed().getName());
@@ -33,6 +35,8 @@ public class DogService {
 				setBreedFromApi(obj, breedFromApi);
 			}
 		}
+		Client tutor = clientService.findById(obj.getTutor().getId());
+		obj.setTutor(tutor);
 		obj.setRegCod(generateRegCod());
 		return dogRepository.save(obj);
 	}
@@ -40,7 +44,7 @@ public class DogService {
 	@Transactional(readOnly = true)
 	public Dog findById(Long id) {
 		Optional<Dog> obj = dogRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException("Cachorro não encontrado: " + id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Cachorro não encontrado id: " + id));
 	}
 
 	@Transactional(readOnly = true)
@@ -50,9 +54,11 @@ public class DogService {
 
 	public Dog update(Long id, Dog obj) {
 		Dog dogSaved = this.findById(id);
+		Client tutor = clientService.findById(obj.getTutor().getId());
 		obj.setId(dogSaved.getId());
 		obj.setRegCod(dogSaved.getRegCod());
 		obj.setAppointments(dogSaved.getAppointments());
+		obj.setTutor(tutor);
 		Optional<Breed> breedSaved = breedService.findByName(obj.getBreed().getName());
 		if (breedSaved.isPresent()) {
 			obj.setBreed(breedSaved.get());

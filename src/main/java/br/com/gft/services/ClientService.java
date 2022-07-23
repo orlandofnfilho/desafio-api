@@ -30,7 +30,7 @@ public class ClientService {
 	@Transactional(readOnly = true)
 	public Client findById(Long id) {
 		Optional<Client> obj = clientRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado: " + id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado id: " + id));
 	}
 
 	@Transactional

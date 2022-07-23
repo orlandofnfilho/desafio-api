@@ -40,7 +40,7 @@ public class BreedService {
 	@Transactional(readOnly = true)
 	public Breed findById(Long id) {
 		Optional<Breed> obj = breedRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException("Raça não encontrada: " + id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Raça não encontrada id: " + id));
 	}
 
 	@Transactional(readOnly = true)

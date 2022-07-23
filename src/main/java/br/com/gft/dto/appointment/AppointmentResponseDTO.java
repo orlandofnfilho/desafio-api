@@ -6,7 +6,8 @@ import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.gft.entities.Dog;
+import br.com.gft.dto.dog.DogResponseDTO;
+import br.com.gft.dto.veterinarian.VeterinarianResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,18 +20,16 @@ public class AppointmentResponseDTO implements Serializable{
 	
 	private Long id;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSZZZZ", shape = JsonFormat.Shape.STRING, timezone = "UTC")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSZ", shape = JsonFormat.Shape.STRING, timezone = "UTC")
 	private ZonedDateTime appointmentTime;
-	
-	private String VeterinarianName;
-	
-	private String VeterinariaCrmv;
-	
+
 	private String tutor;
 	
 	private String tutorCpf;
 	
-	private Dog dog;
+	private VeterinarianResponseDTO veterinarian;
+	
+	private DogResponseDTO dog;
 	
 	private Integer dogActualAge;
 	

@@ -4,6 +4,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,11 @@ public class AppointmentService {
 	@Transactional(readOnly = true)
 	public List<Appointment> findByDog(String regCod) {
 		return appointmentRepository.findByDog_RegCodIgnoreCase(regCod);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<Appointment> findAll(Pageable pageable){
+		return appointmentRepository.findAll(pageable);
 	}
 
 }

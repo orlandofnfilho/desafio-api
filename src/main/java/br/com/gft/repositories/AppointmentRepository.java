@@ -14,6 +14,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
 	
 	Page<Appointment> findAll(Pageable pageable);
 	
-	List<Appointment> findByDog_RegCodIgnoreCase(String regCod);
+	Page<Appointment> findByDog_RegCodIgnoreCase(Pageable pageable, String regCod);
+	
+	Page<Appointment> findByVeterinarian_crmvIgnoreCase(Pageable pageable, String crmv);
 	
 }

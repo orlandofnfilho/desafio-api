@@ -35,8 +35,7 @@ public class ClientController {
 	public ResponseEntity<ClientResponseDTO> create(@RequestBody ClientRequestDTO obj) {
 		Client client = clientService.create(ClientMapper.fromDTO(obj));
 		ClientResponseDTO response = ClientMapper.fromEntity(client);
-		response.setId(client.getId());
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(client.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
 		return ResponseEntity.created(uri).body(response);
 
 	}

@@ -2,7 +2,7 @@ package br.com.gft.services;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.gft.entities.Appointment;
 import br.com.gft.entities.Dog;
 import br.com.gft.entities.Veterinarian;
+import br.com.gft.exceptions.ResourceNotFoundException;
 import br.com.gft.repositories.AppointmentRepository;
 import lombok.AllArgsConstructor;
 
@@ -38,13 +39,42 @@ public class AppointmentService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Appointment> findByDog(String regCod) {
-		return appointmentRepository.findByDog_RegCodIgnoreCase(regCod);
+	public Page<Appointment> findByDog(Pageable pageable, String regCod) {
+		return appointmentRepository.findByDog_RegCodIgnoreCase(pageable, regCod);
+	}
+	@Transactional(readOnly = true)
+	public Page<Appointment> findByVet(Pageable pageable, String crmv) {
+		return appointmentRepository.findByVeterinarian_crmvIgnoreCase(pageable, crmv);
+	}
+
+	@Transactional(readOnly = true)
+	public Page<Appointment> findAll(Pageable pageable) {
+		return appointmentRepository.findAll(pageable);
+	}
+
+	@Transactional(readOnly = true)
+	public Appointment findById(Long id) {
+		Optional<Appointment> obj = appointmentRepository.findById(id);
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Atendimento não encontrado id: " + id));
 	}
 	
-	@Transactional(readOnly = true)
-	public Page<Appointment> findAll(Pageable pageable){
-		return appointmentRepository.findAll(pageable);
+	public Appointment update(Long id, Appointment obj) {
+		Appointment appointmentSaved = findById(id);
+		Dog dogSaved = dogService.findById(obj.getDog().getId());
+		Veterinarian vetSaved = veterinarianService.findById(obj.getVeterinarian().getId());
+		obj.setId(appointmentSaved.getId());
+		obj.setAppointmentTime(appointmentSaved.getAppointmentTime());
+		obj.setDog(dogSaved);
+		obj.setVeterinarian(vetSaved);
+		obj.setTutor(dogSaved.getTutor().getName());
+		obj.setTutorCpf(dogSaved.getTutor().getCpf());
+		return appointmentRepository.save(obj);
+		
+	}
+	
+	public void delete(Long id) {
+		Appointment appointmentSaved = this.findById(id);
+		appointmentRepository.delete(appointmentSaved);
 	}
 
 }

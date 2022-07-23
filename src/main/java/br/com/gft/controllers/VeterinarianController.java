@@ -37,8 +37,7 @@ public class VeterinarianController {
 	public ResponseEntity<VeterinarianResponseDTO> create(@RequestBody @Valid VeterinarianRequestDTO obj) {
 		Veterinarian vet = veterinarianService.create(VeterinarianMapper.fromDTO(obj));
 		VeterinarianResponseDTO response = VeterinarianMapper.fromEntity(vet);
-		response.setId(vet.getId());
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(vet.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
 		return ResponseEntity.created(uri).body(response);
 
 	}

@@ -36,8 +36,7 @@ public class BreedController {
 	public ResponseEntity<BreedResponseDTO> create(@RequestBody BreedRequestDTO obj){
 		Breed breed = breedService.create(BreedMapper.fromDTO(obj));
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
-		response.setId(breed.getId());
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(breed.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
 		return ResponseEntity.created(uri).body(response);
 		
 	}

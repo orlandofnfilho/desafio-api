@@ -1,5 +1,7 @@
 package br.com.gft.controllers;
 
+import java.net.URI;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.gft.dto.dog.DogMapper;
 import br.com.gft.dto.dog.DogRequestDTO;
@@ -31,13 +34,14 @@ public class DogController {
 	@PostMapping
 	public ResponseEntity<DogResponseDTO> create(@RequestBody DogRequestDTO obj) {
 		Dog dog = dogService.create(DogMapper.fromDTO(obj));
-		return ResponseEntity.ok().body(DogMapper.fromEntity(dog));
+		DogResponseDTO response = DogMapper.fromEntity(dog);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
+		return ResponseEntity.created(uri).body(response);
 	}
 
 	@GetMapping(ID)
 	public ResponseEntity<DogResponseDTO> findById(@PathVariable Long id) {
-		Dog dog = dogService.findById(id);
-		DogResponseDTO response = DogMapper.fromEntity(dog);
+		DogResponseDTO response = DogMapper.fromEntity(dogService.findById(id));
 		return ResponseEntity.ok().body(response);
 	}
 

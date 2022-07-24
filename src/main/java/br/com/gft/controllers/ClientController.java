@@ -2,6 +2,8 @@ package br.com.gft.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -32,7 +34,7 @@ public class ClientController {
 	private final ClientService clientService;
 
 	@PostMapping
-	public ResponseEntity<ClientResponseDTO> create(@RequestBody ClientRequestDTO obj) {
+	public ResponseEntity<ClientResponseDTO> create(@RequestBody @Valid ClientRequestDTO obj) {
 		Client client = clientService.create(ClientMapper.fromDTO(obj));
 		ClientResponseDTO response = ClientMapper.fromEntity(client);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
@@ -56,7 +58,7 @@ public class ClientController {
 	}
 
 	@PutMapping(ID)
-	public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @RequestBody  ClientRequestDTO obj) {
+	public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @RequestBody @Valid ClientRequestDTO obj) {
 		Client client = clientService.update(id, ClientMapper.fromDTO(obj));
 		ClientResponseDTO response = ClientMapper.fromEntity(client);
 		return ResponseEntity.ok().body(response);

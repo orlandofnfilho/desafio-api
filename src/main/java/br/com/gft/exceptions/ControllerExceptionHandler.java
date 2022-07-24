@@ -1,10 +1,14 @@
 package br.com.gft.exceptions;
 
 import java.time.Instant;
-import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.NonUniqueResultException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintDefinitionException;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -20,12 +24,14 @@ import br.com.gft.exceptions.erros.StandardError;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
+	private static final String REQUISICAO_INVALIDA = "Requisição inválida";
 	private static final String BAD_REQUEST = "Bad Request";
 	private static final String CONFLICT = "Conflict";
 	private static final String NOT_FOUND = "Not Found";
 
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> catchResourceNotFound(ResourceNotFoundException e,
+			HttpServletRequest request) {
 
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
@@ -38,7 +44,7 @@ public class ControllerExceptionHandler {
 	}
 
 	@ExceptionHandler(BusinessRuleException.class)
-	public ResponseEntity<StandardError> businessConstraint(BusinessRuleException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> catchBusinessRule(BusinessRuleException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
@@ -50,8 +56,32 @@ public class ControllerExceptionHandler {
 
 	}
 
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<StandardError> catchIllegalArgument(IllegalArgumentException e, HttpServletRequest request) {
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.BAD_REQUEST.value());
+		err.setError(BAD_REQUEST);
+		err.setMessage(REQUISICAO_INVALIDA);
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(err.getStatus()).body(err);
+
+	}
+
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<StandardError> catchOthers(RuntimeException e, HttpServletRequest request) {
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.BAD_REQUEST.value());
+		err.setError(BAD_REQUEST);
+		err.setMessage(REQUISICAO_INVALIDA);
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(err.getStatus()).body(err);
+
+	}
+
 	@ExceptionHandler(ArrayIndexOutOfBoundsException.class)
-	public ResponseEntity<StandardError> businessConstraintByGet(ArrayIndexOutOfBoundsException e,
+	public ResponseEntity<StandardError> catchArrayIndexOutOfBounds(ArrayIndexOutOfBoundsException e,
 			HttpServletRequest request) {
 
 		StandardError err = new StandardError();
@@ -64,22 +94,8 @@ public class ControllerExceptionHandler {
 
 	}
 
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<StandardError> dataIntegrityConstraint(DataIntegrityViolationException e,
-			HttpServletRequest request) {
-
-		StandardError err = new StandardError();
-		err.setTimestamp(Instant.now());
-		err.setStatus(HttpStatus.BAD_REQUEST.value());
-		err.setError(BAD_REQUEST);
-		err.setMessage("Requisição inválida");
-		err.setPath(request.getRequestURI());
-		return ResponseEntity.status(err.getStatus()).body(err);
-
-	}
-
 	@ExceptionHandler(NonUniqueResultException.class)
-	public ResponseEntity<StandardError> nonUniqueResult(NonUniqueResultException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> catchNonUniqueResult(NonUniqueResultException e, HttpServletRequest request) {
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -91,7 +107,7 @@ public class ControllerExceptionHandler {
 	}
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<StandardError> invalidDateFormat(HttpMessageNotReadableException e,
+	public ResponseEntity<StandardError> catchInvalidDate(HttpMessageNotReadableException e,
 			HttpServletRequest request) {
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
@@ -103,14 +119,54 @@ public class ControllerExceptionHandler {
 
 	}
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ArgumentNotValidError> argumentNotValid(MethodArgumentNotValidException e,
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<StandardError> catchDataIntegrityViolation(DataIntegrityViolationException e,
+			HttpServletRequest request) {
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.BAD_REQUEST.value());
+		err.setError(BAD_REQUEST);
+		err.setMessage(REQUISICAO_INVALIDA);
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(err.getStatus()).body(err);
+
+	}
+
+	@ExceptionHandler(ConstraintDefinitionException.class)
+	public ResponseEntity<ArgumentNotValidError> catchConstraintDefinition(ConstraintDefinitionException e,
 			HttpServletRequest request) {
 		ArgumentNotValidError err = new ArgumentNotValidError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(HttpStatus.BAD_REQUEST.value());
 		err.setError(BAD_REQUEST);
-		err.setMessage(Arrays.asList(e.getMessage()));
+		err.setMessage(List.of(e.getMessage()));
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(err.getStatus()).body(err);
+
+	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ArgumentNotValidError> catchMethodArgumentNotValid(MethodArgumentNotValidException e,
+			HttpServletRequest request) {
+		ArgumentNotValidError err = new ArgumentNotValidError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.BAD_REQUEST.value());
+		err.setError(BAD_REQUEST);
+		err.setMessage(e.getBindingResult().getAllErrors().stream().map(er -> er.getDefaultMessage()).toList());
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(err.getStatus()).body(err);
+
+	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<ArgumentNotValidError> catchConstraintViolation(ConstraintViolationException e,
+			HttpServletRequest request) {
+		ArgumentNotValidError err = new ArgumentNotValidError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.BAD_REQUEST.value());
+		err.setError(BAD_REQUEST);
+		err.setMessage(
+				e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList()));
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(err.getStatus()).body(err);
 

@@ -2,6 +2,8 @@ package br.com.gft.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -33,7 +35,7 @@ public class AppointmentController {
 	private final AppointmentService appointmentService;
 
 	@PostMapping
-	public ResponseEntity<AppointmentResponseDTO> create(@RequestBody AppointmentRequestDTO dto) {
+	public ResponseEntity<AppointmentResponseDTO> create(@RequestBody @Valid AppointmentRequestDTO dto) {
 		Appointment appointment = appointmentService.create(AppointmentMapper.fromDTO(dto));
 		AppointmentResponseDTO response = AppointmentMapper.fromEntity(appointment);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
@@ -56,8 +58,8 @@ public class AppointmentController {
 
 	@GetMapping("/dog")
 	public ResponseEntity<Page<AppointmentResponseDTO>> findByDog(@PageableDefault(size = 10) Pageable pageable,
-			@RequestParam String dogRegCod) {
-		Page<AppointmentResponseDTO> response = appointmentService.findByDog(pageable, dogRegCod)
+			@RequestParam String regCod) {
+		Page<AppointmentResponseDTO> response = appointmentService.findByDog(pageable, regCod)
 				.map(AppointmentMapper::fromEntity);
 		return ResponseEntity.ok().body(response);
 	}
@@ -71,7 +73,7 @@ public class AppointmentController {
 	}
 	
 	@PutMapping(ID)
-	public ResponseEntity<AppointmentResponseDTO> update(@PathVariable Long id, @RequestBody AppointmentRequestDTO obj) {
+	public ResponseEntity<AppointmentResponseDTO> update(@PathVariable Long id, @RequestBody @Valid AppointmentRequestDTO obj) {
 		Appointment appointment = appointmentService.update(id, AppointmentMapper.fromDTO(obj));
 		AppointmentResponseDTO response = AppointmentMapper.fromEntity(appointment);
 		return ResponseEntity.ok().body(response);

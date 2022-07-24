@@ -16,7 +16,7 @@ import br.com.gft.exceptions.ResourceNotFoundException;
 import br.com.gft.repositories.DogRepository;
 import lombok.AllArgsConstructor;
 
-@Service 
+@Service
 @AllArgsConstructor
 @Transactional
 public class DogService {
@@ -37,7 +37,7 @@ public class DogService {
 		}
 		Client tutor = clientService.findById(obj.getTutor().getId());
 		obj.setTutor(tutor);
-		obj.setRegCod(generateRegCod());
+		obj.setRegCod(generateRegCod(obj.getTutor().getName().replaceAll(" ", "")));
 		return dogRepository.save(obj);
 	}
 
@@ -76,8 +76,8 @@ public class DogService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Cachorro não encontrado: " + regCod));
 	}
 
-	public String generateRegCod() {
-		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public String generateRegCod(String tutorName) {
+		String chars = "0123456789" + tutorName.toUpperCase();
 		Random rnd = new Random();
 		StringBuilder sb = new StringBuilder(6);
 		for (int i = 0; i < 6; i++)

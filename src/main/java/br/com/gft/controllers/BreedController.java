@@ -2,6 +2,8 @@ package br.com.gft.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -33,7 +35,7 @@ public class BreedController {
 	private final BreedService breedService;
 	
 	@PostMapping
-	public ResponseEntity<BreedResponseDTO> create(@RequestBody BreedRequestDTO obj){
+	public ResponseEntity<BreedResponseDTO> create(@RequestBody @Valid  BreedRequestDTO obj){
 		Breed breed = breedService.create(BreedMapper.fromDTO(obj));
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
@@ -59,7 +61,7 @@ public class BreedController {
 	
 	
 	@PutMapping(ID)
-	public ResponseEntity<BreedResponseDTO> update(@PathVariable Long id, @RequestBody BreedRequestDTO obj){
+	public ResponseEntity<BreedResponseDTO> update(@PathVariable Long id, @RequestBody @Valid BreedRequestDTO obj){
 		Breed breed = breedService.update(id, BreedMapper.fromDTO(obj));
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
 		return ResponseEntity.ok().body(response);

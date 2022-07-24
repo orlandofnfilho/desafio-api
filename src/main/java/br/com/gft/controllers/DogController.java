@@ -2,6 +2,8 @@ package br.com.gft.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -32,7 +34,7 @@ public class DogController {
 	private final DogService dogService;
 
 	@PostMapping
-	public ResponseEntity<DogResponseDTO> create(@RequestBody DogRequestDTO obj) {
+	public ResponseEntity<DogResponseDTO> create(@RequestBody @Valid DogRequestDTO obj) {
 		Dog dog = dogService.create(DogMapper.fromDTO(obj));
 		DogResponseDTO response = DogMapper.fromEntity(dog);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
@@ -53,7 +55,7 @@ public class DogController {
 	}
 
 	@PutMapping(ID)
-	public ResponseEntity<DogResponseDTO> update(@PathVariable Long id, @RequestBody DogRequestDTO obj) {
+	public ResponseEntity<DogResponseDTO> update(@PathVariable Long id, @RequestBody @Valid DogRequestDTO obj) {
 		Dog dog = dogService.update(id, DogMapper.fromDTO(obj));
 		DogResponseDTO response = DogMapper.fromEntity(dog);
 		return ResponseEntity.ok().body(response);

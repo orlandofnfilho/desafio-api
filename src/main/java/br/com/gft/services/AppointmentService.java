@@ -23,9 +23,8 @@ public class AppointmentService {
 
 	private final AppointmentRepository appointmentRepository;
 	private final DogService dogService;
-	private final ClientService clientService;
 	private final VeterinarianService veterinarianService;
-	private final BreedService breedService;
+
 
 	public Appointment create(Appointment obj) {
 		obj.setAppointmentTime(ZonedDateTime.now(ZoneId.of("UTC")));

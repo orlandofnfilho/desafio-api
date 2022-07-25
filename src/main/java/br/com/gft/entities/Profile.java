@@ -1,43 +1,36 @@
 package br.com.gft.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tb_veterinarian")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Veterinarian implements Serializable {
+@Table(name = "tb_profile")
+public class Profile implements Serializable, GrantedAuthority {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String name;
+	private String role;
 
-	private String crmv;
-
-	private String phone;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "veterinarian", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	private List<Appointment> appointments;
+	@Override
+	public String getAuthority() {
+		return role;
+	}
 
 }

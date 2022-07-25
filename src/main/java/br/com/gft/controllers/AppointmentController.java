@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,8 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/v1/appointments")
 public class AppointmentController {
 
+	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
+	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";
 	private static final String ID = "/{id}";
 	private final AppointmentService appointmentService;
 
@@ -57,6 +60,7 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/dog")
+	@PreAuthorize(HAS_ANY_AUTHORITY_ADMIN_USUARIO)
 	public ResponseEntity<Page<AppointmentResponseDTO>> findByDog(@PageableDefault(size = 10) Pageable pageable,
 			@RequestParam String regCod) {
 		Page<AppointmentResponseDTO> response = appointmentService.findByDog(pageable, regCod)
@@ -65,6 +69,7 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/vet")
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<Page<AppointmentResponseDTO>> findByVet(@PageableDefault(size = 10) Pageable pageable,
 			@RequestParam String crmv) {
 		Page<AppointmentResponseDTO> response = appointmentService.findByVet(pageable, crmv)

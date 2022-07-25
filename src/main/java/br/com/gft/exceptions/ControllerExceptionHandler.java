@@ -14,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +29,7 @@ public class ControllerExceptionHandler {
 	private static final String BAD_REQUEST = "Bad Request";
 	private static final String CONFLICT = "Conflict";
 	private static final String NOT_FOUND = "Not Found";
+	private static final String FORBIDDEN = "Forbidden";
 
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<StandardError> catchResourceNotFound(ResourceNotFoundException e,
@@ -127,6 +129,19 @@ public class ControllerExceptionHandler {
 		err.setStatus(HttpStatus.BAD_REQUEST.value());
 		err.setError(BAD_REQUEST);
 		err.setMessage(REQUISICAO_INVALIDA);
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(err.getStatus()).body(err);
+
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<StandardError> dataIntegratyViolation(AccessDeniedException e, HttpServletRequest request) {
+
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.FORBIDDEN.value());
+		err.setError(FORBIDDEN);
+		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(err.getStatus()).body(err);
 

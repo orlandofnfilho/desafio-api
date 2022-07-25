@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.gft.dto.auth.AuthDTO;
 import br.com.gft.dto.token.TokenDTO;
-import br.com.gft.dto.user.AuthDTO;
 import br.com.gft.services.AuthenticationService;
 import lombok.AllArgsConstructor;
 

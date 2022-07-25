@@ -14,8 +14,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
+import br.com.gft.dto.auth.AuthDTO;
 import br.com.gft.dto.token.TokenDTO;
-import br.com.gft.dto.user.AuthDTO;
 import br.com.gft.entities.User;
 
 @Service

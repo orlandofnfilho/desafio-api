@@ -65,6 +65,7 @@ public class BreedService {
 		return breedRepository.findByNameIgnoreCase(name);
 	}
 
+	@Transactional(readOnly = true)
 	public void checkName(Breed obj) {
 		Optional<Breed> breedSaved = findByName(obj.getName());
 		if (breedSaved.isPresent()) {
@@ -84,6 +85,7 @@ public class BreedService {
 		return response.getBody();
 	}
 
+	@Transactional(readOnly = true)
 	public void validUpdate(Breed obj) {
 		Optional<Breed> breedSaved = findByName(obj.getName());
 		if (breedSaved.isPresent() && obj.getId() != breedSaved.get().getId()) {

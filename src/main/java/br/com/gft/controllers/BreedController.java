@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,10 +33,14 @@ import lombok.AllArgsConstructor;
 public class BreedController {
 	
 	
+	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
+	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";
 	private static final String ID = "/{id}";
 	private final BreedService breedService;
+
 	
 	@PostMapping
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<BreedResponseDTO> create(@RequestBody @Valid  BreedRequestDTO obj){
 		Breed breed = breedService.create(BreedMapper.fromDTO(obj));
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
@@ -44,6 +50,7 @@ public class BreedController {
 	}
 	
 	@GetMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<BreedResponseDTO> findById(@PathVariable Long id){
 		Breed breed = breedService.findById(id);
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
@@ -52,6 +59,7 @@ public class BreedController {
 	}
 	
 	@GetMapping
+	@PreAuthorize(HAS_ANY_AUTHORITY_ADMIN_USUARIO)
 	public ResponseEntity<Page<BreedResponseDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
 		Page<BreedResponseDTO> response = breedService.findAll(pageable)
 				.map(BreedMapper::fromEntity);
@@ -61,6 +69,7 @@ public class BreedController {
 	
 	
 	@PutMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<BreedResponseDTO> update(@PathVariable Long id, @RequestBody @Valid BreedRequestDTO obj){
 		Breed breed = breedService.update(id, BreedMapper.fromDTO(obj));
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
@@ -68,6 +77,7 @@ public class BreedController {
 	}
 	
 	@DeleteMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<BreedResponseDTO> delete(@PathVariable Long id){
 		breedService.delete(id);
 		return ResponseEntity.noContent().build();

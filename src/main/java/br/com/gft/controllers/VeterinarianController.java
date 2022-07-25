@@ -31,11 +31,13 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/v1/veterinarians")
 public class VeterinarianController {
 
+	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
+	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";
 	private static final String ID = "/{id}";
 	private final VeterinarianService veterinarianService;
 
 	@PostMapping
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<VeterinarianResponseDTO> create(@RequestBody @Valid VeterinarianRequestDTO obj) {
 		Veterinarian vet = veterinarianService.create(VeterinarianMapper.fromDTO(obj));
 		VeterinarianResponseDTO response = VeterinarianMapper.fromEntity(vet);
@@ -45,6 +47,7 @@ public class VeterinarianController {
 	}
 
 	@GetMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<VeterinarianResponseDTO> findById(@PathVariable Long id) {
 		Veterinarian vet = veterinarianService.findById(id);
 		VeterinarianResponseDTO response = VeterinarianMapper.fromEntity(vet);
@@ -53,6 +56,7 @@ public class VeterinarianController {
 	}
 
 	@GetMapping
+	@PreAuthorize(HAS_ANY_AUTHORITY_ADMIN_USUARIO)
 	public ResponseEntity<Page<VeterinarianResponseDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
 		Page<VeterinarianResponseDTO> response = veterinarianService.findAll(pageable)
 				.map(VeterinarianMapper::fromEntity);
@@ -61,6 +65,7 @@ public class VeterinarianController {
 	}
 
 	@PutMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<VeterinarianResponseDTO> update(@PathVariable Long id,
 			@RequestBody @Valid VeterinarianRequestDTO obj) {
 		Veterinarian vet = veterinarianService.update(id, VeterinarianMapper.fromDTO(obj));
@@ -69,6 +74,7 @@ public class VeterinarianController {
 	}
 
 	@DeleteMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<VeterinarianResponseDTO> delete(@PathVariable Long id) {
 		veterinarianService.delete(id);
 		return ResponseEntity.noContent().build();

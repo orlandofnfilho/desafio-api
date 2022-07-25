@@ -71,11 +71,13 @@ public class DogService {
 		dogRepository.delete(dogSaved);
 	}
 
+	@Transactional(readOnly = true)
 	public Dog findByRegCod(String regCod) {
 		Optional<Dog> obj = dogRepository.findByRegCodIgnoreCase(regCod);
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Cachorro não encontrado: " + regCod));
 	}
 
+	@Transactional(readOnly = true)
 	public String generateRegCod(String tutorName) {
 		String chars = "0123456789" + tutorName.toUpperCase();
 		Random rnd = new Random();

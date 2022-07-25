@@ -33,7 +33,7 @@ public class ClientService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado id: " + id));
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Page<Client> findAll(Pageable pageable) {
 		return clientRepository.findAll(pageable);
 	}

@@ -38,6 +38,7 @@ public class AppointmentController {
 	private final AppointmentService appointmentService;
 
 	@PostMapping
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<AppointmentResponseDTO> create(@RequestBody @Valid AppointmentRequestDTO dto) {
 		Appointment appointment = appointmentService.create(AppointmentMapper.fromDTO(dto));
 		AppointmentResponseDTO response = AppointmentMapper.fromEntity(appointment);
@@ -47,6 +48,7 @@ public class AppointmentController {
 	}
 	
 	@GetMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<AppointmentResponseDTO> findById(@PathVariable Long id){
 		Appointment appointment = appointmentService.findById(id);
 		AppointmentResponseDTO response = AppointmentMapper.fromEntity(appointment);
@@ -54,6 +56,7 @@ public class AppointmentController {
 	}
 
 	@GetMapping
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<Page<AppointmentResponseDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
 		Page<AppointmentResponseDTO> response = appointmentService.findAll(pageable).map(AppointmentMapper::fromEntity);
 		return ResponseEntity.ok().body(response);
@@ -78,6 +81,7 @@ public class AppointmentController {
 	}
 	
 	@PutMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<AppointmentResponseDTO> update(@PathVariable Long id, @RequestBody @Valid AppointmentRequestDTO obj) {
 		Appointment appointment = appointmentService.update(id, AppointmentMapper.fromDTO(obj));
 		AppointmentResponseDTO response = AppointmentMapper.fromEntity(appointment);
@@ -85,6 +89,7 @@ public class AppointmentController {
 	}
 	
 	@DeleteMapping(ID)
+	@PreAuthorize(HAS_AUTHORITY_ADMIN)
 	public ResponseEntity<AppointmentResponseDTO> delete(@PathVariable Long id){
 		appointmentService.delete(id);
 		return ResponseEntity.noContent().build();

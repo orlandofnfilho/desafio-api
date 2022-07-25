@@ -75,7 +75,7 @@ public class UserService implements UserDetailsService {
 		return userRepository.save(obj);
 	}
 
-	public User changeProfile(Long profileId, Long userId) {
+	public User changeProfile(Long userId, Long profileId) {
 		User userSaved = this.findById(userId);
 		Optional<Profile> profileSaved = profileRepository.findById(profileId);
 		if (profileSaved.isEmpty()) {

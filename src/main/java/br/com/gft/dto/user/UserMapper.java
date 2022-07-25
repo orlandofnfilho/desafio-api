@@ -9,7 +9,7 @@ public class UserMapper {
 	}
 
 	public static UserResponseDTO fromEntity(User obj) {
-		return new UserResponseDTO(obj.getId(), obj.getPassword(), obj.getProfile().getRole());
+		return new UserResponseDTO(obj.getId(), obj.getEmail(), obj.getProfile().getRole());
 	}
 
 }

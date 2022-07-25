@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserRequestDTO {
 
-	@Email
+	@Email(message = "E-mail inválido")
 	private String email;
 	
 	@NotBlank(message = "Senha inválida")

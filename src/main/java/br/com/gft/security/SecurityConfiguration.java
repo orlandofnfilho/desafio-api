@@ -30,6 +30,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AuthenticationService authenticationService;
+	
+	private static final String[] AUTH_WHITELIST = {
+			"/v2/api-docs", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+			"/configuration/security", "/swagger-ui.html", "/webjars/**",
+			"/v3/api-docs/**", "/swagger-ui/**"
+	};
 
 	@Override
 	@Bean
@@ -49,7 +55,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/vetApi/v1/auth").permitAll()
+		.and().authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
 		.anyRequest().authenticated()
 	    .and().csrf().disable()
 	    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

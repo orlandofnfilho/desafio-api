@@ -25,6 +25,8 @@ import lombok.AllArgsConstructor;
 @Transactional
 public class BreedService {
 
+	private static final String RACA_JA_CADASTRADA = "Raça já cadastrada: ";
+	private static final String ORIGEM_DESCONHECIDA = "Origem desconhecida";
 	private final BreedRepository breedRepository;
 
 	public Breed create(Breed obj) {
@@ -32,8 +34,12 @@ public class BreedService {
 		checkName(obj);
 		if (breedFromApi.size() == 1) {
 			this.findByName(breedFromApi.get(0).getName());
+			if (breedFromApi.get(0).getOrigin() == null)
+				obj.setOrigin(ORIGEM_DESCONHECIDA);
 			return breedRepository.save(breedFromApi.get(0));
 		}
+		if (obj.getOrigin() == null)
+			obj.setOrigin(ORIGEM_DESCONHECIDA);
 		return breedRepository.save(obj);
 	}
 
@@ -51,6 +57,8 @@ public class BreedService {
 	public Breed update(Long id, Breed obj) {
 		Breed breedSaved = this.findById(id);
 		obj.setId(breedSaved.getId());
+		if (obj.getOrigin() == null)
+			obj.setOrigin(ORIGEM_DESCONHECIDA);
 		validUpdate(obj);
 		return breedRepository.save(obj);
 	}
@@ -69,7 +77,7 @@ public class BreedService {
 	public void checkName(Breed obj) {
 		Optional<Breed> breedSaved = findByName(obj.getName());
 		if (breedSaved.isPresent()) {
-			throw new BusinessRuleException("Raça já cadastrada: " + breedSaved.get().getName());
+			throw new BusinessRuleException(RACA_JA_CADASTRADA + breedSaved.get().getName());
 		}
 	}
 
@@ -89,7 +97,7 @@ public class BreedService {
 	public void validUpdate(Breed obj) {
 		Optional<Breed> breedSaved = findByName(obj.getName());
 		if (breedSaved.isPresent() && obj.getId() != breedSaved.get().getId()) {
-			throw new BusinessRuleException("Raça já cadastrada: " + breedSaved.get().getName());
+			throw new BusinessRuleException(RACA_JA_CADASTRADA + breedSaved.get().getName());
 		}
 	}
 }

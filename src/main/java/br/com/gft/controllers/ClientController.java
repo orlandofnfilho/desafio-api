@@ -28,7 +28,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/clients")
+@RequestMapping("/vetApi/v1/clients")
 public class ClientController {
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";

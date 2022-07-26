@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/appointments")
+@RequestMapping("/vetApi/v1/appointments")
 public class AppointmentController {
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";

@@ -28,56 +28,52 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/breeds")
+@RequestMapping("/vetApi/v1/breeds")
 public class BreedController {
-	
-	
+
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
 	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";
 	private static final String ID = "/{id}";
 	private final BreedService breedService;
 
-	
 	@PostMapping
 	@PreAuthorize(HAS_AUTHORITY_ADMIN)
-	public ResponseEntity<BreedResponseDTO> create(@RequestBody @Valid  BreedRequestDTO obj){
+	public ResponseEntity<BreedResponseDTO> create(@RequestBody @Valid BreedRequestDTO obj) {
 		Breed breed = breedService.create(BreedMapper.fromDTO(obj));
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID).buildAndExpand(response.getId()).toUri();
 		return ResponseEntity.created(uri).body(response);
-		
+
 	}
-	
+
 	@GetMapping(ID)
 	@PreAuthorize(HAS_AUTHORITY_ADMIN)
-	public ResponseEntity<BreedResponseDTO> findById(@PathVariable Long id){
+	public ResponseEntity<BreedResponseDTO> findById(@PathVariable Long id) {
 		Breed breed = breedService.findById(id);
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
 		return ResponseEntity.ok().body(response);
-		
+
 	}
-	
+
 	@GetMapping
 	@PreAuthorize(HAS_ANY_AUTHORITY_ADMIN_USUARIO)
 	public ResponseEntity<Page<BreedResponseDTO>> findAll(@PageableDefault(size = 10) Pageable pageable) {
-		Page<BreedResponseDTO> response = breedService.findAll(pageable)
-				.map(BreedMapper::fromEntity);
+		Page<BreedResponseDTO> response = breedService.findAll(pageable).map(BreedMapper::fromEntity);
 		return ResponseEntity.ok().body(response);
 
 	}
-	
-	
+
 	@PutMapping(ID)
 	@PreAuthorize(HAS_AUTHORITY_ADMIN)
-	public ResponseEntity<BreedResponseDTO> update(@PathVariable Long id, @RequestBody @Valid BreedRequestDTO obj){
+	public ResponseEntity<BreedResponseDTO> update(@PathVariable Long id, @RequestBody @Valid BreedRequestDTO obj) {
 		Breed breed = breedService.update(id, BreedMapper.fromDTO(obj));
 		BreedResponseDTO response = BreedMapper.fromEntity(breed);
 		return ResponseEntity.ok().body(response);
 	}
-	
+
 	@DeleteMapping(ID)
 	@PreAuthorize(HAS_AUTHORITY_ADMIN)
-	public ResponseEntity<BreedResponseDTO> delete(@PathVariable Long id){
+	public ResponseEntity<BreedResponseDTO> delete(@PathVariable Long id) {
 		breedService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

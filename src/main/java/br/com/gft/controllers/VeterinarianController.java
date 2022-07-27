@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.gft.controllers.docs.VeterinarianControllerDoc;
 import br.com.gft.dto.veterinarian.VeterinarianMapper;
 import br.com.gft.dto.veterinarian.VeterinarianRequestDTO;
 import br.com.gft.dto.veterinarian.VeterinarianResponseDTO;
@@ -29,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vetApi/v1/veterinarians")
-public class VeterinarianController {
+public class VeterinarianController implements VeterinarianControllerDoc{
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
 	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";

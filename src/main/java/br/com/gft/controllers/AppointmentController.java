@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.gft.controllers.docs.AppointmentControllerDoc;
 import br.com.gft.dto.appointment.AppointmentMapper;
 import br.com.gft.dto.appointment.AppointmentRequestDTO;
 import br.com.gft.dto.appointment.AppointmentResponseDTO;
@@ -30,7 +31,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vetApi/v1/appointments")
-public class AppointmentController {
+public class AppointmentController implements AppointmentControllerDoc{
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
 	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";

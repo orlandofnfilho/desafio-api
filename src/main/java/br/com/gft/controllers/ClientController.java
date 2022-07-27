@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.gft.controllers.docs.ClientControllerDoc;
 import br.com.gft.dto.client.ClientMapper;
 import br.com.gft.dto.client.ClientRequestDTO;
 import br.com.gft.dto.client.ClientResponseDTO;
@@ -29,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vetApi/v1/clients")
-public class ClientController {
+public class ClientController implements ClientControllerDoc{
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
 	private static final String ID = "/{id}";

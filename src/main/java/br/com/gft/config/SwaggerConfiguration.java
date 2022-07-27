@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
 
 	 private static final String BASE_PACKAGE = "br.com.gft.controllers";
 	    private static final String API_TITLE = "Vet API - GFT";
-	    private static final String API_DESCRIPTION = "Vet API - GFT - Starter #4";
+	    private static final String API_DESCRIPTION = "Starter - José Orlando F. do N. Filho";
 	    private static final String API_VERSION = "1.0.0";
 	    private static final String API_LICENSE = "Apache 2.0";
 	    private static final String API_LICENSE_URL = "http://www.apache.org/licenses/LICENSE-2.0.html";

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.gft.controllers.docs.UserControllerDoc;
 import br.com.gft.dto.user.UserMapper;
 import br.com.gft.dto.user.UserRequestDTO;
 import br.com.gft.dto.user.UserResponseDTO;
@@ -31,7 +32,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("vetApi/v1/users")
-public class UserController {
+public class UserController implements UserControllerDoc{
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
 	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";
@@ -85,5 +86,4 @@ public class UserController {
 		userService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.gft.controllers.docs.TheDogApiControllerDoc;
 import br.com.gft.dto.breed.BreedMapper;
 import br.com.gft.dto.breed.BreedResponseDTO;
 import br.com.gft.dto.vote.VoteDeleteResponseDTO;
@@ -26,7 +27,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vetApi/v1/thedogapi")
-public class TheDogApiController {
+public class TheDogApiController implements TheDogApiControllerDoc{
 
 	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";
 	private final TheDogApiService theDogApiService;

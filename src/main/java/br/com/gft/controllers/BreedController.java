@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.gft.controllers.docs.BreedControllerDoc;
 import br.com.gft.dto.breed.BreedMapper;
 import br.com.gft.dto.breed.BreedRequestDTO;
 import br.com.gft.dto.breed.BreedResponseDTO;
@@ -29,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vetApi/v1/breeds")
-public class BreedController {
+public class BreedController implements BreedControllerDoc{
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
 	private static final String HAS_ANY_AUTHORITY_ADMIN_USUARIO = "hasAnyAuthority('ADMIN','USUARIO')";

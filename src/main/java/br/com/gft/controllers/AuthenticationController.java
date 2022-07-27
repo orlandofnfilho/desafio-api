@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.gft.controllers.docs.AuthControllerDoc;
 import br.com.gft.dto.auth.AuthDTO;
 import br.com.gft.dto.token.TokenDTO;
 import br.com.gft.services.AuthenticationService;
@@ -15,7 +16,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("vetApi/v1/auth")
-public class AuthenticationController {
+public class AuthenticationController implements AuthControllerDoc{
 
 	private AuthenticationService authenticationService;
 

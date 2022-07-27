@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api("Manages auth")
+@Api(description = "Manage auth", tags = { "1. Auth" })
 public interface AuthControllerDoc {
 
 	

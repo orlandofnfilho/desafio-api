@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api("Manages appointments")
+@Api(description = "Manage appointments", tags = { "7. Appointments" })
 public interface AppointmentControllerDoc {
 	
 	public static final String DOG_ID_OR_VETERINARIAN_ID_NOT_FOUND = "Dog Id or Veterinarian Id not found";

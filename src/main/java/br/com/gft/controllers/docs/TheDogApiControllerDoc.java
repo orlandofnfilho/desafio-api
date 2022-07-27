@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api("Manages clients")
+@Api(description = "Manage TheDogApi", tags = { "8. TheDogApi" })
 public interface TheDogApiControllerDoc {
 	
 	public static final String THE_VOTE_WAS_SUCCESSFULLY_CREATED = "The Vote was successfully created";

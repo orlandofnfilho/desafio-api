@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -19,11 +18,11 @@ import lombok.NoArgsConstructor;
 public class AppointmentRequestDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NotBlank(message = "Id do veterinário inválido")
+	@NotNull(message = "Id do veterinário inválido")
 	@ApiModelProperty(value = "Veterinarian Id", position = 1)
 	private Long veterinarianId;
 	
-	@NotBlank(message = "Id do cachorro inválido")
+	@NotNull(message = "Id do cachorro inválido")
 	@ApiModelProperty(value = "Dog Id", position = 2)
 	private Long dogId;
 	

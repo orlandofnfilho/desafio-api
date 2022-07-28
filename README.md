@@ -1,4 +1,4 @@
-﻿# Desafio MVC GFT Start #4
+﻿# Desafio API GFT Start #4
 
 ## 📋  Sobre
 
@@ -25,7 +25,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 ## 📁 Informações
 
-Importar o projeto como projeto Maven, verificar as informações de usuário de senha do banco de dados após importar o projeto. Ao realiza o primeiro acesso, a aplicação tem por padrão 2 perfis de privilégios, ADMIN e USUARIO que já serão salvas no banco ao iniciar. Sendo também necessário o envio do token JWT que é retornado ao fazer autenticação no controller Auth.
+Importar o projeto como projeto Maven, verificar as informações de usuário de senha do banco de dados após importar o projeto. Ao realiza o primeiro acesso, a aplicação tem por padrão 2 perfis de privilégios, ADMIN e USUARIO que já serão salvos no banco ao iniciar. Sendo também necessário o envio do token JWT que é retornado ao fazer autenticação no controller Auth.
 #### Credenciais para acesso de ADMIN:
 email: admin@gft.com
 password: Gft@1234
@@ -115,9 +115,9 @@ A documentação completa dos Endpoints estará disponível através do Swagger 
 
 * O regCod de cada cachorro é gerado automaticamente no seu cadastro. Sendo um código único de 6 digitos com letras contidas no nome do seu tutor e números.
 
-* A data do atentimento também é gerada no momento do seu cadastro.
+* A data do atendimento também é gerada no momento do seu cadastro.
 
-* CPF, CRMV(5 numeros) e E-mail dos usuários são registros únicos.
+* CPF, CRMV(5 números) e E-mail dos usuários são registros únicos.
 
 * Para CRMV foi criado uma Annotation personalizada, à qual necessita de ser 5 números. 
 

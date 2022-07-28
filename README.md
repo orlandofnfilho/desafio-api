@@ -1,4 +1,4 @@
-﻿# Desafio MVC GFT Starter #4
+﻿# Desafio MVC GFT Start #4
 
 ## 📋  Sobre
 
@@ -43,11 +43,11 @@ password: Gft@1234
 - Usuários:
     | Método | URL                                             | Perfil(s) Autorizado(s) | 
     | ------ | ---                                             | ----------------------- |
-    | POST   | http://localhost:8080/vetApi/v1/users           | ADMIN                   |
-    | GET    | http://localhost:8080/vetApi/v1/users           | ADMIN, USUARIO          |
+    | POST   | http://localhost:8080/vetApi/v1/users           | ADMIN, USUARIO          |
+    | GET    | http://localhost:8080/vetApi/v1/users           | ADMIN                   |
     | GET    | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN                   |
-    | PUT    | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN, USUARIO
-    | PATCH    | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN         |
+    | PUT    | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN, USUARIO          |
+    | PATCH  | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN                   |
     | DELETE | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN                   |
 
 - Clientes:

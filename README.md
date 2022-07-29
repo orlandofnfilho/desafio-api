@@ -150,3 +150,16 @@ Token creation operation" e clique em "Try it out"
 5- Na janela que abrir, informar o token gerado e copiado no passo 3.  
 **IMPORTANTE:** É necessário a adição do prefixo "Bearer " (sem aspas), com espaço entre o Bearer e o token para que ele funcione corretamente. É só clicar em "authorize" e seguir para o Swagger normalmente que já estará autorizado conforme o perfil do usuário que usou no passo 2 para gerar o token. 
 ![Swagger Authentication Step 05](docs/swagger_auth05.png?raw=true "Swagger Authentication Step 05")  
+
+## Exceeds
+
+✅ Recuperar dados da raça no cadastro do animal
+
+
+✅ Forcenecer 3 serviços da API descrita no final da atividade
+
+✅ Histórico de atendimentos: O cliente(USUARIO) só tem acesso ao histórico dos seus animais com o finByDog(Dog regCod). Já os veterinários tem acesso a todo histórico inclusive todos seus atendimentos com o finByVet(CRMV).
+
+✅ Swagger com documentação
+
+✅ Testes unitários

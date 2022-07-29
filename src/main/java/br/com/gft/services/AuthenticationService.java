@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,7 +22,7 @@ import br.com.gft.entities.User;
 @Service
 public class AuthenticationService {
 
-	@Autowired
+	@Autowired @Lazy
 	private AuthenticationManager authManager;
 
 	@Value("${desafio-api.jwt.secret}")

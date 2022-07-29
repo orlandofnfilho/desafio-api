@@ -127,7 +127,7 @@ A documentação completa dos Endpoints estará disponível através do Swagger 
 
 * O controller TheDogApi faz requisições na The Dog API, o GET(findAll) retorna a lista com todas as raças cadastradas. O POST(createVote) vota numa imagem através do id passado no corpo da requisição, sendo 1 para Up Vote e 0 Down Vote. Já o DELETE(deleteVote) deleta o voto através do id do voto retornado na requisição createVote.
 
-* Objeto de modelo para testar o método creteVote:
+* Objeto de modelo para testar o método createVote:
 ```
 {
     "image_id": "asf2",

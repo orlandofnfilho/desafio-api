@@ -108,8 +108,7 @@ password: Gft@1234
 A documentação completa dos Endpoints estará disponível através do Swagger acessível pelo link: http://localhost:8080/swagger-ui.html  
 
 ## Sobre o sistema:
-* O perfil ADMIN tem a maior parte de acesso aos CRUD da API sendo assim disponibilizado aos veterinários da aplicação, já o perfil ADMIN que seria de acesso dos clientes. Os clientes tem podem fazer as consultas das raças cadastradas no sistema, como também dos atendimentos realizados por seus cachorros através do regCod de cada um deles.
-
+* O perfil ADMIN tem a maior parte de acesso aos CRUD da API sendo assim disponibilizado aos veterinários da aplicação, já o perfil ADMIN que seria de acesso dos clientes, apenas algumas consultas e cadastro e novo usuário. Os clientes podem fazer as consultas das raças cadastradas no sistema, como também dos atendimentos realizados por seus cachorros através do regCod de cada um deles. Já os veterinários tem acesso a todo CRUD da aplicação, podendo ver todos os atendimentos realizados.
 
 * Também é possível fazer a consulta de todos os atendimentos realizados por cada médico, esse por sua vez só com o perfil ADMIN e pelo CRMV do médico.
 

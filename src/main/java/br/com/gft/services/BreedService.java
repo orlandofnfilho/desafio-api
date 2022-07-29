@@ -34,11 +34,11 @@ public class BreedService {
 		checkName(obj);
 		if (breedFromApi.size() == 1) {
 			this.findByName(breedFromApi.get(0).getName());
-			if (breedFromApi.get(0).getOrigin() == null)
-				obj.setOrigin(ORIGEM_DESCONHECIDA);
+			if (breedFromApi.get(0).getOrigin() == null || breedFromApi.get(0).getOrigin().isBlank())
+				breedFromApi.get(0).setOrigin(ORIGEM_DESCONHECIDA);
 			return breedRepository.save(breedFromApi.get(0));
 		}
-		if (obj.getOrigin() == null)
+		if (obj.getOrigin() == null || obj.getOrigin().isBlank())
 			obj.setOrigin(ORIGEM_DESCONHECIDA);
 		return breedRepository.save(obj);
 	}
@@ -57,7 +57,7 @@ public class BreedService {
 	public Breed update(Long id, Breed obj) {
 		Breed breedSaved = this.findById(id);
 		obj.setId(breedSaved.getId());
-		if (obj.getOrigin() == null)
+		if (obj.getOrigin() == null || obj.getOrigin().isBlank())
 			obj.setOrigin(ORIGEM_DESCONHECIDA);
 		validUpdate(obj);
 		return breedRepository.save(obj);

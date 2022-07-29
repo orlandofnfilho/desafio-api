@@ -77,7 +77,6 @@ public class DogService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Cachorro não encontrado: " + regCod));
 	}
 
-	@Transactional(readOnly = true)
 	public String generateRegCod(String tutorName) {
 		String chars = "0123456789" + tutorName.toUpperCase();
 		Random rnd = new Random();

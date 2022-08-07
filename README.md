@@ -92,8 +92,8 @@ password: Gft@1234
     | POST   | http://localhost:8080/vetApi/v1/appointments       | ADMIN                   |
     | GET    | http://localhost:8080/vetApi/v1/appointments       | ADMIN                   |
     | GET    | http://localhost:8080/vetApi/v1/appointments/{id}  | ADMIN                   |
-    | GET    | http://localhost:8080/vetApi/v1/appointments/dog/{regCod}| ADMIN, USUARIO                   |
-     | GET    | http://localhost:8080/vetApi/v1/appointments/dog/{crmv}| ADMIN                   |
+    | GET    | http://localhost:8080/vetApi/v1/appointments/dog/{regCod}| ADMIN, USUARIO    |
+     | GET    | http://localhost:8080/vetApi/v1/appointments/dog/{crmv}| ADMIN              |
     | PUT    | http://localhost:8080/vetApi/v1/appointments/{id}  | ADMIN                   |
     | DELETE | http://localhost:8080/vetApi/v1/appointments/{id}  | ADMIN                   |
 

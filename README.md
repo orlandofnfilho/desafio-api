@@ -158,7 +158,7 @@ Token creation operation" e clique em "Try it out"
 
 ✅ Forcenecer 3 serviços da API descrita no final da atividade
 
-✅ Histórico de atendimentos: O cliente(USUARIO) só tem acesso ao histórico dos seus animais com o finByDog(Dog regCod). Já os veterinários tem acesso a todo histórico inclusive todos seus atendimentos com o finByVet(CRMV).
+✅ Histórico de atendimentos: O cliente(USUARIO) só tem acesso ao histórico dos seus animais com o findByDog(Dog regCod). Já os veterinários tem acesso a todo histórico inclusive todos seus atendimentos com o findByVet(CRMV).
 
 ✅ Swagger com documentação
 

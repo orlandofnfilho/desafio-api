@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -33,8 +33,8 @@ public class User implements Serializable, UserDetails{
 	private String email;
 	
 	private String password;
-	
-	@OneToOne
+
+	@ManyToOne
 	private Profile profile;
 
 	@Override

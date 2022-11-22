@@ -112,7 +112,7 @@ A documentação completa dos Endpoints estará disponível através do Swagger 
 
 * Também é possível fazer a consulta de todos os atendimentos realizados por cada médico, esse por sua vez só com o perfil ADMIN e pelo CRMV do médico.
 
-* O regCod de cada cachorro é gerado automaticamente no seu cadastro. Sendo um código único de 6 digitos com letras contidas no nome do seu tutor e números.
+* O regCod de cada cachorro é gerado automaticamente no seu cadastro. Sendo um código único de 6 dígitos com letras contidas no nome do seu tutor e números.
 
 * A data do atendimento também é gerada no momento do seu cadastro.
 

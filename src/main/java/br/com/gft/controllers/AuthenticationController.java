@@ -2,6 +2,7 @@ package br.com.gft.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,9 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("vetApi/v1/auth")
-public class AuthenticationController implements AuthControllerDoc{
+@RequestMapping("/api/v1/auth")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class AuthenticationController implements AuthControllerDoc {
 
 	private AuthenticationService authenticationService;
 

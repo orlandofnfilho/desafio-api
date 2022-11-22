@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,7 +32,8 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("vetApi/v1/users")
+@RequestMapping("/api/v1/users")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController implements UserControllerDoc{
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";
@@ -40,7 +42,6 @@ public class UserController implements UserControllerDoc{
 	private final UserService userService;
 
 	@PostMapping
-	@PreAuthorize(HAS_ANY_AUTHORITY_ADMIN_USUARIO)
 	public ResponseEntity<UserResponseDTO> create(@RequestBody @Valid UserRequestDTO dto) {
 		User user = userService.create(UserMapper.fromDTO(dto));
 		UserResponseDTO response = UserMapper.fromEntity(user);

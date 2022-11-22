@@ -22,7 +22,8 @@ import br.com.gft.entities.User;
 @Service
 public class AuthenticationService {
 
-	@Autowired @Lazy
+	@Autowired
+	@Lazy
 	private AuthenticationManager authManager;
 
 	@Value("${desafio-api.jwt.secret}")
@@ -51,6 +52,7 @@ public class AuthenticationService {
 		Date today = new Date();
 		Date expDate = new Date(today.getTime() + Long.parseLong(expiration));
 		return JWT.create().withIssuer(issuer).withExpiresAt(expDate).withSubject(principal.getId().toString())
+				.withClaim("Role", principal.getProfile().getRole())
 				.sign(this.createAlgorithm());
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,8 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/vetApi/v1/veterinarians")
+@RequestMapping("/api/v1/veterinarians")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class VeterinarianController implements VeterinarianControllerDoc{
 
 	private static final String HAS_AUTHORITY_ADMIN = "hasAuthority('ADMIN')";

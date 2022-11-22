@@ -133,7 +133,7 @@ public class ControllerExceptionHandler {
 		return ResponseEntity.status(err.getStatus()).body(err);
 
 	}
-	
+
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<StandardError> dataIntegratyViolation(AccessDeniedException e, HttpServletRequest request) {
 
@@ -167,7 +167,8 @@ public class ControllerExceptionHandler {
 		err.setTimestamp(Instant.now());
 		err.setStatus(HttpStatus.BAD_REQUEST.value());
 		err.setError(BAD_REQUEST);
-		err.setMessage(e.getBindingResult().getAllErrors().stream().map(er -> er.getDefaultMessage()).toList());
+		err.setMessage(e.getBindingResult().getAllErrors().stream().map(er -> er.getDefaultMessage())
+				.collect(Collectors.toList()));
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(err.getStatus()).body(err);
 

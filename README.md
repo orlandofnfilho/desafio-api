@@ -43,7 +43,7 @@ password: Gft@1234
 - Usuários:
     | Método | URL                                             | Perfil(s) Autorizado(s) | 
     | ------ | ---                                             | ----------------------- |
-    | POST   | http://localhost:8080/vetApi/v1/users           | ADMIN, USUARIO          |
+    | POST   | http://localhost:8080/vetApi/v1/users           | Público          |
     | GET    | http://localhost:8080/vetApi/v1/users           | ADMIN                   |
     | GET    | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN                   |
     | PUT    | http://localhost:8080/vetApi/v1/users/{id}      | ADMIN, USUARIO          |

@@ -25,7 +25,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 ## 📁 Informações
 
-Importar o projeto como projeto Maven, verificar as informações de usuário de senha do banco de dados após importar o projeto. Ao realiza o primeiro acesso, a aplicação tem por padrão 2 perfis de privilégios, ADMIN e USUARIO que já serão salvos no banco ao iniciar. Sendo também necessário o envio do token JWT que é retornado ao fazer autenticação no controller Auth.
+Importar o projeto como projeto Maven, verificar as informações de usuário de senha do banco de dados após importar. Ao realizar o primeiro acesso, a aplicação tem por padrão 2 perfis de privilégios, ADMIN e USUARIO que já serão salvos no banco ao iniciar. Sendo também necessário o envio do token JWT que é retornado ao fazer autenticação no controller Auth.
 #### Credenciais para acesso de ADMIN:
 email: admin@gft.com
 password: Gft@1234
